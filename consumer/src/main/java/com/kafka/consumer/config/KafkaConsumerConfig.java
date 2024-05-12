@@ -39,4 +39,23 @@ public class KafkaConsumerConfig {
         return props;
     }
 
+    @Bean(name = "stringDeserializer")
+    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String,Object>> kafkaListenerContainerFactory2(){
+        ConcurrentKafkaListenerContainerFactory<String,Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(consumerFactory2());
+        return factory;
+    }
+
+    public ConsumerFactory<String,Object> consumerFactory2(){
+        return new DefaultKafkaConsumerFactory<>(consumerConfig2());
+    }
+
+    public Map<String,Object> consumerConfig2(){
+        Map<String,Object> props =  new HashMap<>();
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        return props;
+    }
+
 }
