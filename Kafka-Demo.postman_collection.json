@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "suenna",
+					"raw": "Suresh Prajapati",
 					"options": {
 						"raw": {
 							"language": "text"
@@ -41,7 +41,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\":\"Suresh Prajapati\",\r\n    \"age\": 34,\r\n    \"studentAddress\":{\r\n        \"street\":\"4525 NE\",\r\n        \"zip\":14\r\n    }\r\n\r\n}",
+					"raw": "{\r\n    \"name\":\"Suresh Prajapati\",\r\n    \"age\": 34,\r\n    \"homeAddress\":{\r\n        \"street\":\"4525 NERR\",\r\n        \"zip\":14\r\n    }\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -70,7 +70,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\":\"Suresh Prajaptai\",\r\n    \"age\": 34,\r\n    \"studentAddress\":{\r\n        \"street\":\"4525 NE\",\r\n        \"zip\":14\r\n    }\r\n\r\n}",
+					"raw": "{\r\n    \"name\":\"Suresh Prajaptai\",\r\n    \"age\": 34,\r\n    \"homeAddress\":{\r\n        \"street\":\"4525 NE\",\r\n        \"zip\":14\r\n    }\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -99,7 +99,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\":12,\r\n    \"name\": \"34\",\r\n    \"carColor\":{\r\n        \"name\":\"4525 NE\",\r\n        \"depth\":14\r\n    }\r\n\r\n}",
+					"raw": "{\r\n    \"id\":19,\r\n    \"name\": \"\",\r\n    \"carColor\":{\r\n        \"name\":\"Red\",\r\n        \"depth\":14\r\n    }\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
