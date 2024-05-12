@@ -1,10 +1,12 @@
 package com.kafka.producer.config;
 
+import com.kafka.producer.util.TopicConstants;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
@@ -17,10 +19,33 @@ import java.util.Map;
 public class KafkaProducerConfig {
 
 
-//    @Bean
-//    public NewTopic newTopic(){
-//        return new NewTopic("demo001", 3,(short) 1);
-//    }
+    // Below NewTopic Beans are for easy demo purposes only, in real time, its created by cli only.
+    @Bean
+    public NewTopic carTopic(){
+        return TopicBuilder
+                .name(TopicConstants.CAR_TOPIC)
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic personTopic(){
+        return TopicBuilder
+                .name(TopicConstants.PERSON_TOPIC)
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic textOnlyTopic(){
+        return TopicBuilder
+                .name(TopicConstants.TEXT_ONLY_TOPIC)
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
 
 /*
 
