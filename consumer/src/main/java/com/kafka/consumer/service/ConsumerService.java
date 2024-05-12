@@ -6,8 +6,12 @@ import com.kafka.consumer.dto.MyCar;
 import com.kafka.consumer.dto.Person;
 import com.kafka.consumer.util.TopicConstants;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.kafka.annotation.DltHandler;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.annotation.RetryableTopic;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.handler.annotation.Header;
+import org.springframework.retry.annotation.Backoff;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -38,10 +42,26 @@ public class ConsumerService {
         log.info("Consumed V2: {}",person);
     }
 
+//    @RetryableTopic(attempts = "4", backoff = @Backoff(delay = 3000,multiplier = 1.5,maxDelay = 15000), exclude = {NullPointerException.class})
+    @RetryableTopic(attempts = "4")
     @KafkaListener(topics = TopicConstants.CAR_TOPIC, groupId = TopicConstants.CAR_GROUP_ID)
-    public void consumeObjectV3(MyCar mycar) {
-        System.out.println("Car CONSUMED....");
-        log.info("Consumed V3: {}",mycar);
+    public void consumeObjectV3(MyCar mycar, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic, @Header(KafkaHeaders.OFFSET) long offset) {
+        try {
+            log.info("Consumed Car: {} :: topic:: {} offset:: {}", mycar,topic,offset);
+            if(mycar.name().isBlank()){
+                throw new RuntimeException("NO Car Name Provided");
+            }
+
+        }
+        catch (RuntimeException e){
+            log.error("ERR: {}",e.getLocalizedMessage());
+        }
     }
+
+    @DltHandler  //Dead Letter Topics
+    public void listenDLT(MyCar mycar, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic, @Header(KafkaHeaders.OFFSET) long offset){
+        log.info("DLT MSG RECEIVED:: {},{},{}",mycar,topic,offset);
+    }
+
 
 }
