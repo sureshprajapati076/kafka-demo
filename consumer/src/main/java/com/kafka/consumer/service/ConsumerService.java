@@ -24,14 +24,17 @@ public class ConsumerService {
         this.objectMapper = objectMapper;
     }
 
+    @RetryableTopic(attempts = "4", kafkaTemplate = "stringSerializer")
     @KafkaListener(topics = TopicConstants.TEXT_ONLY_TOPIC, groupId = TopicConstants.TEXT_ONLY_GROUP_ID, containerFactory = "stringDeserializer")
     public void consumeObject(String message) {
         try{
             var result = objectMapper.readValue(message, Person.class);
             log.info("Consumed as Person Object: {}",result);
+            if(message.contains("ERR")) throw new RuntimeException("ERR");
         }
         catch (JsonProcessingException ex){
             log.info("Consumed as plain text: {}",message);
+            if(message.contains("ERR")) throw new RuntimeException("ERR");
         }
 
     }
@@ -43,7 +46,7 @@ public class ConsumerService {
     }
 
 //    @RetryableTopic(attempts = "4", backoff = @Backoff(delay = 3000,multiplier = 1.5,maxDelay = 15000), exclude = {NullPointerException.class})
-    @RetryableTopic(attempts = "4")
+    @RetryableTopic(attempts = "4")  // will use default kafkaTemplate
     @KafkaListener(topics = TopicConstants.CAR_TOPIC, groupId = TopicConstants.CAR_GROUP_ID)
     public void consumeObjectV3(MyCar mycar, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic, @Header(KafkaHeaders.OFFSET) long offset) {
         try {
