@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "f4972da9-3c1e-4e1d-937b-1058ccbde0b2",
+		"name": "Kafka-Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13397013"
+	},
+	"item": [
+		{
+			"name": "Any Plain Text",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "suenna",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9191/produce",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"produce"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Object to String",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Suresh Prajapati\",\r\n    \"age\": 34,\r\n    \"studentAddress\":{\r\n        \"street\":\"4525 NE\",\r\n        \"zip\":14\r\n    }\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9191/post/v1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"post",
+						"v1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Person Object",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Suresh Prajaptai\",\r\n    \"age\": 34,\r\n    \"studentAddress\":{\r\n        \"street\":\"4525 NE\",\r\n        \"zip\":14\r\n    }\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9191/post/v2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"post",
+						"v2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Car Object",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":12,\r\n    \"name\": \"34\",\r\n    \"carColor\":{\r\n        \"name\":\"4525 NE\",\r\n        \"depth\":14\r\n    }\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9191/post/v3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"post",
+						"v3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

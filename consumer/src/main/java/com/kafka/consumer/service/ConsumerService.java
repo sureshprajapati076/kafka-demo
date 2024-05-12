@@ -1,5 +1,7 @@
 package com.kafka.consumer.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kafka.consumer.dto.MyCar;
 import com.kafka.consumer.dto.Person;
 import com.kafka.consumer.util.TopicConstants;
@@ -11,11 +13,22 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class ConsumerService {
 
-//    @KafkaListener(topics = "sample123")
-//    public void consumeObject(String message) throws JsonProcessingException {
-//        var result = objectMapper.readValue(message, Person.class);
-//        log.info("Consumed V1: {}",result);
-//    }
+    private final ObjectMapper objectMapper;
+
+    public ConsumerService(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
+    @KafkaListener(topics = TopicConstants.TEXT_ONLY_TOPIC, groupId = TopicConstants.TEXT_ONLY_GROUP_ID)
+    public void consumeObject(String message) throws JsonProcessingException {
+        var result = objectMapper.readValue(message, Person.class);
+        log.info("Consumed V1: {}",result);
+    }
+
+    @KafkaListener(topics = TopicConstants.TEXT_ONLY_TOPIC, groupId = TopicConstants.TEXT_ONLY_GROUP_ID)
+    public void consume1(String message){
+        log.info("Consumed 1: {}",message);
+    }
 
     @KafkaListener(topics = TopicConstants.PERSON_TOPIC, groupId = TopicConstants.PERSON_GROUP_ID)
     public void consumeObjectV2(Person person) {
@@ -28,27 +41,5 @@ public class ConsumerService {
         System.out.println("Car CONSUMED....");
         log.info("Consumed V3: {}",mycar);
     }
-
-//    @KafkaListener(topics = "demo0", groupId = "g-id")
-//    public void consume1(String message){
-//        log.info("Consumed 1: {}",message);
-//    }
-
-
-
-//    @KafkaListener(topics = "praja")
-//    public void consume2(String message){
-//        log.info("Consumed 2: {}",message);
-//    }
-//    @KafkaListener(topics = "praja")
-//    public void consume3(String message){
-//        log.info("Consumed 3: {}",message);
-//    }
-//
-//    @KafkaListener(topics = "praja")
-//    public void consume4(String message){
-//        log.info("Consumed 4: {}",message);
-//    }
-
 
 }

@@ -20,28 +20,28 @@ public class ProducerController {
         this.objectMapper = objectMapper;
     }
 
-//    @PostMapping("/produce")
-//    public ResponseEntity<?> produce(@RequestBody String message){
-//        try {
-//            for(int i=0;i<10000;i++) {
-//                kafkaMessagePublisher.sendMessageToTopic(message+" "+i);
-//            }
-//            return ResponseEntity.ok("MEssage Delivered");
-//        }catch (Exception ex){
-//            return ResponseEntity.status(500).body("ERROR");
-//        }
-//    }
+    @PostMapping("/produce")
+    public ResponseEntity<?> produce(@RequestBody String message){
+        try {
+            for(int i=0;i<10;i++) {
+                kafkaMessagePublisher.sendMessageToTopic(message+" "+i);
+            }
+            return ResponseEntity.ok("Message Delivered");
+        }catch (Exception ex){
+            return ResponseEntity.status(500).body("ERROR");
+        }
+    }
 
-//    @PostMapping("/post/v1")
-//    public ResponseEntity<?> producev1(@RequestBody Person person){
-//        try {
-//            var message = objectMapper.writeValueAsString(person);
-//            kafkaMessagePublisher.sendMessageToTopic(message);
-//            return ResponseEntity.ok("Message Delivered");
-//        }catch (Exception ex){
-//            return ResponseEntity.status(500).body("ERROR");
-//        }
-//    }
+    @PostMapping("/post/v1")
+    public ResponseEntity<?> producev1(@RequestBody Person person){
+        try {
+            var message = objectMapper.writeValueAsString(person);
+            kafkaMessagePublisher.sendMessageToTopic(message);
+            return ResponseEntity.ok("Message Delivered");
+        }catch (Exception ex){
+            return ResponseEntity.status(500).body("ERROR");
+        }
+    }
 
     @PostMapping("/post/v2")
     public ResponseEntity<?> producev2(@RequestBody Person person){
