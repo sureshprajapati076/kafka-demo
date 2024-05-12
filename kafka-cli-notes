@@ -6,4 +6,6 @@
 
     C:\kafka_2.12-3.7.0\bin\windows> kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 3 --topic mytopic
 
-    C:\kafka_2.12-3.7.0\bin\windows>kafka-topics.bat --bootstrap-server localhost:9092 --describe --topic sp04440
+    C:\kafka_2.12-3.7.0\bin\windows>kafka-topics.bat --bootstrap-server localhost:9092 --describe --topic car-topic-dlt
+
+    C:\kafka_2.12-3.7.0\bin\windows>kafka-console-consumer.bat --topic car-topic-dlt --bootstrap-server localhost:9092 --from-beginning
