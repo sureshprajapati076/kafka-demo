@@ -1,9 +1,9 @@
 package com.kafka.consumer.service;
 
 import com.kafka.consumer.dto.MyCar;
-import com.kafka.consumer.dto.Person;
 import com.kafka.consumer.util.TopicConstants;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.annotation.BackOff;
 import org.springframework.kafka.annotation.DltHandler;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.annotation.RetryableTopic;
@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class MyCarConsumerService {
 
-//    @RetryableTopic(attempts = "4", backoff = @Backoff(delay = 3000,multiplier = 1.5,maxDelay = 15000), exclude = {NullPointerException.class})
-    @RetryableTopic(attempts = "4", kafkaTemplate = "kafkaTemplate")
+//    @RetryableTopic(attempts = "4", backOff = @Backoff(delay = 3000,multiplier = 1.5,maxDelay = 15000), exclude = {NullPointerException.class})
+    @RetryableTopic(attempts = "4", kafkaTemplate = "kafkaTemplate",backOff = @BackOff(delay = 3000,multiplier = 1.5,maxDelay = 15000), exclude = {NullPointerException.class})
     @KafkaListener(topics = TopicConstants.CAR_TOPIC, groupId = TopicConstants.CAR_GROUP_ID)
     public void consumeObjectV3(MyCar mycar, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic, @Header(KafkaHeaders.OFFSET) long offset) {
 

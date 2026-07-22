@@ -1,7 +1,6 @@
 package com.kafka.consumer.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.kafka.consumer.dto.Person;
 import com.kafka.consumer.util.TopicConstants;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +10,8 @@ import org.springframework.kafka.annotation.RetryableTopic;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 @Service
 @Slf4j
@@ -30,7 +31,7 @@ public class PlainTextConsumerService {
                 var result = objectMapper.readValue(message, Person.class);
                 log.info("Consumed as Person Object: {}", result);
                 if (message.contains("ERR")) throw new RuntimeException("ERR");
-            } catch (JsonProcessingException ex) {
+            } catch (JacksonException ex) {
                 log.info("Consumed as plain text: {}", message);
                 if (message.contains("ERR")) throw new RuntimeException("ERR");
             }

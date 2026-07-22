@@ -1,6 +1,5 @@
 package com.kafka.producer.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kafka.producer.dto.Person;
 import com.kafka.producer.model.MyCar;
 import com.kafka.producer.service.KafkaMessagePublisher;
@@ -8,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import tools.jackson.databind.ObjectMapper;
 
 @RestController
 public class ProducerController {

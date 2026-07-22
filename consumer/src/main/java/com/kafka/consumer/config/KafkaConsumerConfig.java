@@ -11,8 +11,8 @@ import org.springframework.kafka.config.KafkaListenerContainerFactory;
 import org.springframework.kafka.core.*;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
-import org.springframework.kafka.support.serializer.JsonDeserializer;
-import org.springframework.kafka.support.serializer.JsonSerializer;
+import org.springframework.kafka.support.serializer.JacksonJsonDeserializer;
+import org.springframework.kafka.support.serializer.JacksonJsonSerializer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,13 +44,13 @@ public class KafkaConsumerConfig {
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class);
         props.put(ErrorHandlingDeserializer.KEY_DESERIALIZER_CLASS, StringDeserializer.class);
-        props.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class);
+        props.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JacksonJsonDeserializer.class);
 
 
 
         // Below config is used to map from producer dto to consumer dto in terms of packages...
-        props.put(JsonDeserializer.TYPE_MAPPINGS,"com.kafka.producer.dto.Person:com.kafka.consumer.dto.Person,com.kafka.producer.model.MyCar:com.kafka.consumer.dto.MyCar");
-        props.put(JsonDeserializer.TRUSTED_PACKAGES,"*");
+        props.put(JacksonJsonDeserializer.TYPE_MAPPINGS,"com.kafka.producer.dto.Person:com.kafka.consumer.dto.Person,com.kafka.producer.model.MyCar:com.kafka.consumer.dto.MyCar");
+        props.put(JacksonJsonDeserializer.TRUSTED_PACKAGES,"*");
         return props;
     }
 
@@ -87,7 +87,7 @@ public class KafkaConsumerConfig {
         Map<String,Object> props =  new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JacksonJsonSerializer.class);
         return props;
     }
 
