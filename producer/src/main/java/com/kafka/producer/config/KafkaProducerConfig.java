@@ -3,6 +3,7 @@ package com.kafka.producer.config;
 import com.kafka.producer.util.TopicConstants;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.RoundRobinPartitioner;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,15 @@ public class KafkaProducerConfig {
     public NewTopic carTopic(){
         return TopicBuilder
                 .name(TopicConstants.CAR_TOPIC)
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic objectTopic(){
+        return TopicBuilder
+                .name(TopicConstants.OBJ)
                 .partitions(3)
                 .replicas(1)
                 .build();
@@ -73,6 +83,9 @@ public class KafkaProducerConfig {
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JacksonJsonSerializer.class);
+        props.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, RoundRobinPartitioner.class);
+//        props.put(ProducerConfig.BATCH_SIZE_CONFIG, 0);
+//        props.put(ProducerConfig.LINGER_MS_CONFIG, 0);
        return props;
     }
 
