@@ -5,17 +5,14 @@ import com.kafka.producer.model.MyCar;
 import com.kafka.producer.service.KafkaMessagePublisher;
 import com.kafka.producer.util.TopicConstants;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.support.SendResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import tools.jackson.databind.ObjectMapper;
 
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 
 @RestController
 @Slf4j
@@ -63,7 +60,7 @@ public class ProducerController {
     }
 
     @PostMapping("/post/v1")
-    public ResponseEntity<?> producev1(@RequestBody Person person){
+    public ResponseEntity<?> producerV1(@RequestBody Person person){
         try {
             var message = objectMapper.writeValueAsString(person);
             kafkaMessagePublisher.sendMessageToTopic(message);
@@ -74,12 +71,12 @@ public class ProducerController {
     }
 
     @PostMapping("/post/v2")
-    public ResponseEntity<?> producev2(@RequestBody Person person){
+    public ResponseEntity<?> producerV2(@RequestBody Person person){
         try {
             kafkaMessagePublisher.sendMessageToTopicV2(person);
             return ResponseEntity.ok("Message Delivered");
         }catch (Exception ex){
-            System.out.println(ex.getLocalizedMessage());
+            log.error(ex.getLocalizedMessage());
             return ResponseEntity.status(500).body("ERROR");
         }
     }
@@ -90,7 +87,7 @@ public class ProducerController {
             kafkaMessagePublisher.sendMessageToTopicV3(car);
             return ResponseEntity.ok("Message Delivered");
         }catch (Exception ex){
-            System.out.println(ex.getLocalizedMessage());
+            log.error(ex.getLocalizedMessage());
             return ResponseEntity.status(500).body("ERROR");
         }
     }
