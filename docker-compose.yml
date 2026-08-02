@@ -1,6 +1,13 @@
+networks:
+  kafka-net:
+    driver: bridge
+
 services:
   kafka:
     image: confluentinc/cp-kafka:8.2.2
+    container_name: kafka-broker
+    networks:
+      - kafka-net
     ports:
       - "9092:9092"
     environment:
@@ -16,3 +23,18 @@ services:
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+
+  kafka-ui:
+    image: ghcr.io/kafbat/kafka-ui:latest
+    container_name: kafka-ui
+    networks:
+      - kafka-net
+    ports:
+      - "8080:8080"
+    depends_on:
+      - kafka
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local-confluent-cluster
+      # Pointing to the internal listener address from your Kafka settings
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
+      DYNAMIC_CONFIG_ENABLED: 'true'
