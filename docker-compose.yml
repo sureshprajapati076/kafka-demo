@@ -30,7 +30,7 @@ services:
     networks:
       - kafka-net
     ports:
-      - "8080:8080"
+      - "8081:8081"
     depends_on:
       - kafka
     environment:
